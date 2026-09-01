@@ -1,5 +1,4 @@
-[README.md](https://github.com/user-attachments/files/31700905/README.md)
-# FEELINGLOW# FEELINGLOW Profile Maker
+# FEELINGLOW Profile Maker
 
 FLOWGLOWをお祝いするイベント「FEELINGLOW」をイメージして、新規デザインで作成したプロフィールメーカーです。
 
