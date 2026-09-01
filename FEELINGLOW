@@ -1,0 +1,373 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>FEELINGLOW Profile Maker</title>
+<style>
+:root{
+  --bg:#070914; --panel:#0c1020; --line:#2b3450;
+  --pink:#ff00c8; --green:#52ff00; --cyan:#61f7ff;
+  --white:#f7f7fb; --muted:#aab0c3;
+}
+*{box-sizing:border-box}
+body{
+  margin:0;color:var(--white);font-family:Inter,system-ui,-apple-system,"Segoe UI",
+  "Noto Sans JP",sans-serif;background:
+  radial-gradient(circle at 15% 5%,#1d2448 0,transparent 30%),
+  radial-gradient(circle at 90% 25%,#351035 0,transparent 28%),#050711;
+}
+body:before{
+  content:"";position:fixed;inset:0;pointer-events:none;opacity:.16;
+  background-image:radial-gradient(#fff 0.5px,transparent .7px);
+  background-size:7px 7px;mix-blend-mode:screen;
+}
+.wrap{max-width:1280px;margin:auto;padding:24px}
+header{margin-bottom:20px}
+.brand{
+  font-size:clamp(34px,6vw,64px);font-weight:1000;letter-spacing:.04em;
+  transform:skew(-7deg);display:inline-block;
+  text-shadow:3px 3px 0 #fff,7px 7px 0 #ff00c8,0 0 26px #ff00c8;
+}
+.subtitle{font-weight:800;letter-spacing:.28em;color:#d7d9e7;margin-top:2px}
+.grid{display:grid;grid-template-columns:350px minmax(0,1fr);gap:22px;align-items:start}
+.panel{
+  background:rgba(10,14,28,.94);border:1px solid #303952;border-radius:18px;
+  padding:18px;box-shadow:0 18px 50px #0009;position:sticky;top:16px
+}
+.panel h2{margin:0 0 14px;font-size:15px;letter-spacing:.16em;color:var(--green)}
+label{display:block;margin:12px 0 6px;color:#c2c7d8;font-size:12px;font-weight:700}
+input,textarea{
+  width:100%;border:1px solid #38425e;background:#070b16;color:#fff;
+  border-radius:9px;padding:10px 11px;font:inherit;outline:none
+}
+input:focus,textarea:focus{border-color:var(--pink);box-shadow:0 0 0 2px #ff00c822}
+textarea{min-height:105px;resize:vertical}
+.music{display:grid;gap:7px}
+.music input::placeholder{color:#70788e}
+button{
+  width:100%;border:0;border-radius:10px;padding:13px 12px;margin-top:14px;
+  font-weight:900;letter-spacing:.05em;cursor:pointer
+}
+.primary{background:linear-gradient(90deg,var(--green),#b5ff5c);color:#050807;box-shadow:0 0 22px #52ff0035}
+.secondary{background:#151b2c;color:#e8eaf2;border:1px solid #39445f;margin-top:8px}
+.hint{font-size:11px;color:#858da2;line-height:1.55;margin:12px 2px 0}
+.preview{overflow:auto;padding-bottom:8px}
+.card{
+  width:1000px;height:1414px;position:relative;overflow:hidden;border-radius:8px;
+  background:
+    radial-gradient(ellipse at 50% 20%,#17203a 0,transparent 44%),
+    linear-gradient(145deg,#070914 0%,#090b18 55%,#110914 100%);
+  box-shadow:0 20px 70px #000c;border:1px solid #1f2740;
+}
+.grain{position:absolute;inset:0;opacity:.13;background-image:
+  radial-gradient(#fff .45px,transparent .65px);background-size:6px 6px;mix-blend-mode:screen}
+.splash{position:absolute;filter:drop-shadow(0 0 12px #000)}
+.s1{left:-90px;top:-20px;width:420px;height:105px;background:var(--green);clip-path:polygon(0 35%,100% 0,75% 35%,100% 48%,20% 85%,45% 55%,0 80%);transform:rotate(-6deg)}
+.s2{right:-100px;top:0;width:380px;height:100px;background:var(--green);clip-path:polygon(0 55%,35% 20%,100% 0,82% 52%,100% 70%,25% 95%);transform:rotate(4deg)}
+.s3{left:-120px;top:315px;width:330px;height:170px;background:var(--pink);clip-path:polygon(0 25%,75% 0,100% 38%,80% 55%,100% 75%,30% 100%,0 72%,25% 50%);transform:rotate(-7deg)}
+.s4{right:-125px;bottom:315px;width:360px;height:170px;background:var(--pink);clip-path:polygon(0 20%,80% 0,100% 30%,83% 52%,100% 80%,30% 100%,0 68%,25% 48%);transform:rotate(8deg)}
+.s5{left:-30px;bottom:-55px;width:320px;height:100px;background:var(--green);clip-path:polygon(0 70%,100% 0,82% 75%,15% 100%);transform:rotate(7deg)}
+.neonline{position:absolute;height:3px;background:var(--pink);box-shadow:0 0 12px var(--pink),0 0 28px var(--pink);transform:rotate(-19deg)}
+.n1{width:470px;right:-95px;top:85px}.n2{width:400px;left:-115px;bottom:70px;transform:rotate(19deg)}
+.logo{
+  position:absolute;top:42px;left:50px;right:50px;text-align:center;
+  font-size:78px;line-height:1;font-weight:1000;letter-spacing:.03em;
+  transform:skew(-8deg);color:#fff;
+  text-shadow:4px 4px 0 #202034,8px 8px 0 var(--pink),0 0 22px #fff8;
+}
+.eventtag{
+  position:absolute;top:130px;left:0;right:0;text-align:center;
+  font-size:19px;font-weight:900;letter-spacing:.38em;color:var(--pink);
+  text-shadow:0 0 13px var(--pink)
+}
+.frame{
+  position:absolute;border:2px solid #f5f5fa;background:#080b15cc;
+  box-shadow:0 0 0 1px #ffffff15,0 0 18px #ff00c833,inset 0 0 25px #ffffff09;
+  border-radius:4px
+}
+.photo{
+  left:52px;top:184px;width:430px;height:600px;padding:10px;
+  transform:rotate(-1deg);background:#0a0d17
+}
+.photo img{width:100%;height:100%;object-fit:cover;display:block}
+.photo .placeholder{
+  position:absolute;inset:10px;display:grid;place-items:center;text-align:center;
+  background:linear-gradient(145deg,#11182b,#190d1d);color:#fff;
+  font-weight:1000;font-size:24px;letter-spacing:.1em
+}
+.photo .placeholder span{font-size:12px;color:#aeb4c6;letter-spacing:.05em}
+.namebox{left:510px;top:184px;width:438px;height:128px;padding:16px 20px}
+.cap{font-size:14px;font-weight:900;letter-spacing:.22em;color:var(--green)}
+.namevalue{font-size:42px;font-weight:1000;margin-top:8px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.oshibox{left:510px;top:328px;width:438px;height:125px;padding:15px 20px;border-color:var(--pink)}
+.oshivalue{font-size:34px;font-weight:1000;margin-top:11px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.musicbox{left:510px;top:470px;width:438px;height:314px;padding:15px 17px}
+.tracks{display:grid;gap:8px;margin-top:12px}
+.track{
+  height:57px;background:#f6f6fa;color:#10131d;border-radius:3px;
+  display:flex;align-items:center;padding:6px 10px;gap:10px;border-left:7px solid var(--pink)
+}
+.track:nth-child(even){border-left-color:var(--green)}
+.num{font-size:20px;font-weight:1000;width:31px}.trackmain{min-width:0;flex:1}
+.song{font-size:17px;font-weight:900;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.wave{font-size:24px;font-weight:900}
+.eventbox{left:52px;top:815px;width:430px;height:155px;padding:16px;border-color:var(--pink)}
+.eventname{font-size:34px;font-weight:1000;color:#fff;margin-top:10px;letter-spacing:.04em}
+.eventsub{font-size:12px;color:var(--green);font-weight:900;letter-spacing:.17em;margin-top:7px}
+.freebox{left:52px;top:990px;width:896px;height:335px;padding:16px}
+.freebody{
+  margin-top:12px;background:#f6f6fa;color:#171a24;border-radius:3px;height:270px;
+  padding:18px;font-size:20px;line-height:1.6;white-space:pre-wrap;overflow:hidden
+}
+.footer{position:absolute;left:52px;right:52px;bottom:27px;display:flex;justify-content:space-between;align-items:end}
+.hash{font-size:15px;font-weight:900;letter-spacing:.16em;color:#fff}
+.small{font-size:11px;color:#858da2;letter-spacing:.16em}
+@media(max-width:900px){
+  .wrap{padding:14px}.grid{grid-template-columns:1fr}.panel{position:static}
+  .preview{border-radius:12px}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+  <div class="brand">FEELINGLOW</div>
+  <div class="subtitle">FLOWGLOW CELEBRATION / PROFILE MAKER</div>
+</header>
+
+<div class="grid">
+<section class="panel">
+  <h2>PROFILE INPUT</h2>
+
+  <label>1. 名前</label>
+  <input id="name" maxlength="24" placeholder="あなたの名前">
+
+  <label>2. 推しメンバー</label>
+  <input id="oshi" maxlength="24" placeholder="推しのホロメン">
+
+  <label>3. プロフィール画像</label>
+  <input id="photo" type="file" accept="image/*">
+
+  <label>4. 好きな曲／リクエスト曲（最大4曲）</label>
+  <div class="music">
+    <input class="song" maxlength="45" placeholder="曲名 1">
+    <input class="song" maxlength="45" placeholder="曲名 2">
+    <input class="song" maxlength="45" placeholder="曲名 3">
+    <input class="song" maxlength="45" placeholder="曲名 4">
+  </div>
+
+  <label>5. フリースペース</label>
+  <textarea id="free" maxlength="300" placeholder="FLOWGLOWへのメッセージ、好きなところ、イベントへの意気込みなど"></textarea>
+
+  <button class="primary" id="download">PNG画像として保存</button>
+  <button class="secondary" id="reset">入力をリセット</button>
+
+  <p class="hint">
+    6. 入力内容は右側へリアルタイム反映されます。<br>
+    7. 保存画像は1000×1414px。<br>
+    8. スマホ・PC対応。<br>
+    9. 選択した画像を含め、データは外部サーバーへ送信しません。
+  </p>
+</section>
+
+<section class="preview">
+<div id="card" class="card">
+  <div class="grain"></div>
+  <div class="splash s1"></div><div class="splash s2"></div><div class="splash s3"></div><div class="splash s4"></div><div class="splash s5"></div>
+  <div class="neonline n1"></div><div class="neonline n2"></div>
+
+  <div class="logo">FEELINGLOW</div>
+  <div class="eventtag">FLOWGLOW CELEBRATION</div>
+
+  <div class="photo frame">
+    <img id="photoImg" alt="">
+    <div id="photoPh" class="placeholder">YOUR IMAGE<br><span>プロフィール画像を設定できます</span></div>
+  </div>
+
+  <div class="namebox frame">
+    <div class="cap">NAME</div>
+    <div id="vName" class="namevalue">YOUR NAME</div>
+  </div>
+
+  <div class="oshibox frame">
+    <div class="cap" style="color:var(--pink)">OSHI MEMBER</div>
+    <div id="vOshi" class="oshivalue">推しメンバー</div>
+  </div>
+
+  <div class="musicbox frame">
+    <div class="cap">FAVORITE MUSIC / REQUEST</div>
+    <div id="tracks" class="tracks"></div>
+  </div>
+
+  <div class="eventbox frame">
+    <div class="cap" style="color:var(--pink)">EVENT</div>
+    <div class="eventname">FEELINGLOW</div>
+    <div class="eventsub">FLOWGLOW CELEBRATION</div>
+  </div>
+
+  <div class="freebox frame">
+    <div class="cap">FREE SPACE / MESSAGE</div>
+    <div id="vFree" class="freebody">FLOWGLOWへのメッセージをここに。</div>
+  </div>
+
+  <div class="footer">
+    <div class="hash">#FEELINGLOW　#FLOWGLOW</div>
+    <div class="small">PROFILE CARD / 1000 × 1414</div>
+  </div>
+</div>
+</section>
+</div>
+</div>
+
+<script>
+const $ = id => document.getElementById(id);
+const songs = [...document.querySelectorAll(".song")];
+const photoState = {src:""};
+
+function update(){
+  $("vName").textContent = $("name").value.trim() || "YOUR NAME";
+  $("vOshi").textContent = $("oshi").value.trim() || "推しメンバー";
+  $("vFree").textContent = $("free").value.trim() || "FLOWGLOWへのメッセージをここに。";
+
+  const vals = songs.map(x=>x.value.trim()).filter(Boolean);
+  $("tracks").innerHTML = (vals.length ? vals : ["好きな曲を入力してください"]).map((s,i)=>`
+    <div class="track">
+      <div class="num">0${i+1}</div>
+      <div class="trackmain"><div class="song">${escapeHTML(s)}</div></div>
+      <div class="wave">⌁</div>
+    </div>`).join("");
+}
+function escapeHTML(s){
+  return s.replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+}
+["name","oshi","free"].forEach(id=>$(id).addEventListener("input",update));
+songs.forEach(x=>x.addEventListener("input",update));
+
+$("photo").addEventListener("change",e=>{
+  const file=e.target.files[0]; if(!file)return;
+  const reader=new FileReader();
+  reader.onload=()=>{
+    photoState.src=reader.result;
+    $("photoImg").src=reader.result;
+    $("photoImg").style.display="block";
+    $("photoPh").style.display="none";
+  };
+  reader.readAsDataURL(file);
+});
+
+$("reset").onclick=()=>{
+  $("name").value="";$("oshi").value="";$("free").value="";
+  songs.forEach(x=>x.value="");
+  $("photo").value="";photoState.src="";
+  $("photoImg").src="";$("photoImg").style.display="none";$("photoPh").style.display="grid";
+  update();
+};
+
+function fitText(ctx,text,maxWidth,fontSize,fontWeight="900",fontFamily='"Noto Sans JP",system-ui,sans-serif'){
+  let size=fontSize;
+  while(size>16){
+    ctx.font=`${fontWeight} ${size}px ${fontFamily}`;
+    if(ctx.measureText(text).width<=maxWidth)return size;
+    size-=1;
+  }
+  return size;
+}
+function drawCover(ctx,img,x,y,w,h){
+  const ir=img.width/img.height, br=w/h;
+  let sx=0,sy=0,sw=img.width,sh=img.height;
+  if(ir>br){sw=img.height*br;sx=(img.width-sw)/2}
+  else{sh=img.width/br;sy=(img.height-sh)/2}
+  ctx.drawImage(img,sx,sy,sw,sh,x,y,w,h);
+}
+function roundRect(ctx,x,y,w,h,r){
+  ctx.beginPath();ctx.roundRect(x,y,w,h,r);ctx.closePath();
+}
+function glowLine(ctx,x1,y1,x2,y2,color,width=3){
+  ctx.save();ctx.strokeStyle=color;ctx.lineWidth=width;ctx.shadowColor=color;ctx.shadowBlur=18;
+  ctx.beginPath();ctx.moveTo(x1,y1);ctx.lineTo(x2,y2);ctx.stroke();ctx.restore();
+}
+function paintSplash(ctx,points,color){
+  ctx.save();ctx.fillStyle=color;ctx.beginPath();ctx.moveTo(points[0][0],points[0][1]);
+  for(const p of points.slice(1))ctx.lineTo(p[0],p[1]);ctx.closePath();ctx.fill();ctx.restore();
+}
+async function renderPNG(){
+  const W=1000,H=1414, c=document.createElement("canvas"); c.width=W;c.height=H;
+  const ctx=c.getContext("2d");
+
+  const bg=ctx.createLinearGradient(0,0,W,H);bg.addColorStop(0,"#070914");bg.addColorStop(.55,"#090b18");bg.addColorStop(1,"#110914");ctx.fillStyle=bg;ctx.fillRect(0,0,W,H);
+  const rg=ctx.createRadialGradient(500,260,20,500,260,560);rg.addColorStop(0,"#19223e88");rg.addColorStop(1,"transparent");ctx.fillStyle=rg;ctx.fillRect(0,0,W,H);
+
+  paintSplash(ctx,[[0,35],[250,0],[420,0],[330,45],[400,70],[70,115],[150,72],[0,95]],"#52ff00");
+  paintSplash(ctx,[[1000,0],[820,20],[790,65],[920,58],[865,100],[1000,86]],"#52ff00");
+  paintSplash(ctx,[[0,335],[250,315],[330,360],[285,405],[330,455],[80,480],[0,450],[45,400]],"#ff00c8");
+  paintSplash(ctx,[[1000,1060],[810,1080],[765,1130],[830,1180],[790,1215],[1000,1190]],"#ff00c8");
+  glowLine(ctx,720,80,1080,-35,"#ff00c8",3);
+  glowLine(ctx,-80,1360,330,1490,"#ff00c8",3);
+
+  ctx.textAlign="center";ctx.textBaseline="middle";
+  ctx.font='1000 78px "Noto Sans JP",system-ui,sans-serif';
+  ctx.shadowColor="#ff00c8";ctx.shadowBlur=25;ctx.fillStyle="#fff";
+  ctx.fillText("FEELINGLOW",500,82);
+  ctx.shadowBlur=0;ctx.lineWidth=7;ctx.strokeStyle="#202034";ctx.strokeText("FEELINGLOW",500,82);
+  ctx.font='900 19px "Noto Sans JP",system-ui,sans-serif';ctx.fillStyle="#ff00c8";ctx.fillText("FLOWGLOW CELEBRATION",500,143);
+
+  // Photo
+  ctx.save();ctx.translate(267,484);ctx.rotate(-Math.PI/180);ctx.fillStyle="#080b15";ctx.strokeStyle="#f5f5fa";ctx.lineWidth=3;
+  ctx.fillRect(-215,-300,430,600);ctx.strokeRect(-215,-300,430,600);
+  if(photoState.src){
+    const img=await loadImage(photoState.src);drawCover(ctx,img,-205,-290,410,580);
+  }else{
+    const pg=ctx.createLinearGradient(-205,-290,205,290);pg.addColorStop(0,"#11182b");pg.addColorStop(1,"#190d1d");ctx.fillStyle=pg;ctx.fillRect(-205,-290,410,580);
+    ctx.fillStyle="#fff";ctx.font='1000 24px "Noto Sans JP",system-ui,sans-serif';ctx.fillText("YOUR IMAGE",0,-10);
+    ctx.font='700 12px "Noto Sans JP",system-ui,sans-serif';ctx.fillStyle="#aeb4c6";ctx.fillText("プロフィール画像を設定できます",0,25);
+  }ctx.restore();
+
+  // Name / Oshi boxes
+  function box(x,y,w,h,border="#f5f5fa"){ctx.fillStyle="#080b15e8";ctx.strokeStyle=border;ctx.lineWidth=2;roundRect(ctx,x,y,w,h,4);ctx.fill();ctx.stroke()}
+  box(510,184,438,128);ctx.textAlign="left";ctx.fillStyle="#52ff00";ctx.font='900 14px sans-serif';ctx.fillText("NAME",530,212);
+  let name=$("name").value.trim()||"YOUR NAME";let ns=fitText(ctx,name,395,42,"1000");ctx.fillStyle="#fff";ctx.font=`1000 ${ns}px "Noto Sans JP",system-ui,sans-serif`;ctx.fillText(name,530,260);
+  box(510,328,438,125,"#ff00c8");ctx.fillStyle="#ff00c8";ctx.font='900 14px sans-serif';ctx.fillText("OSHI MEMBER",530,356);
+  let oshi=$("oshi").value.trim()||"推しメンバー";let os=fitText(ctx,oshi,395,34,"1000");ctx.fillStyle="#fff";ctx.font=`1000 ${os}px "Noto Sans JP",system-ui,sans-serif`;ctx.fillText(oshi,530,405);
+
+  box(510,470,438,314);ctx.fillStyle="#52ff00";ctx.font='900 14px sans-serif';ctx.fillText("FAVORITE MUSIC / REQUEST",527,497);
+  const vals=songs.map(x=>x.value.trim()).filter(Boolean);const list=vals.length?vals:["好きな曲を入力してください"];
+  list.forEach((s,i)=>{
+    const yy=520+i*65;ctx.fillStyle="#f6f6fa";ctx.fillRect(527,yy,405,57);ctx.fillStyle=i%2?"#52ff00":"#ff00c8";ctx.fillRect(527,yy,7,57);
+    ctx.fillStyle="#10131d";ctx.font='1000 20px sans-serif';ctx.fillText(`0${i+1}`,548,yy+29);
+    const fs=fitText(ctx,s,310,17,"900");ctx.font=`900 ${fs}px "Noto Sans JP",system-ui,sans-serif`;ctx.fillText(s,590,yy+29);
+    ctx.font='900 24px sans-serif';ctx.fillText("⌁",900,yy+29);
+  });
+
+  box(52,815,430,155,"#ff00c8");ctx.fillStyle="#ff00c8";ctx.font='900 14px sans-serif';ctx.fillText("EVENT",68,843);
+  ctx.fillStyle="#fff";ctx.font='1000 34px "Noto Sans JP",system-ui,sans-serif';ctx.fillText("FEELINGLOW",68,886);
+  ctx.fillStyle="#52ff00";ctx.font='900 12px sans-serif';ctx.fillText("FLOWGLOW CELEBRATION",68,920);
+
+  box(52,990,896,335);ctx.fillStyle="#52ff00";ctx.font='900 14px sans-serif';ctx.fillText("FREE SPACE / MESSAGE",68,1018);
+  ctx.fillStyle="#f6f6fa";ctx.fillRect(68,1038,864,270);
+  ctx.fillStyle="#171a24";const free=$("free").value.trim()||"FLOWGLOWへのメッセージをここに。";
+  ctx.font='700 20px "Noto Sans JP",system-ui,sans-serif';const max=810, words=free.split(/(\s+|、|。|！|？)/);let lines=[],line="";
+  for(const token of words){const test=line+token;if(ctx.measureText(test).width>max&&line){lines.push(line);line=token}else line=test}
+  if(line)lines.push(line);lines.slice(0,9).forEach((l,i)=>ctx.fillText(l,88,1078+i*34));
+
+  ctx.textAlign="left";ctx.fillStyle="#fff";ctx.font='900 15px sans-serif';ctx.fillText("#FEELINGLOW  #FLOWGLOW",52,1370);
+  ctx.textAlign="right";ctx.fillStyle="#858da2";ctx.font='700 11px sans-serif';ctx.fillText("PROFILE CARD / 1000 × 1414",948,1370);
+  return c;
+}
+function loadImage(src){return new Promise((res,rej)=>{const im=new Image();im.onload=()=>res(im);im.onerror=rej;im.src=src})}
+
+$("download").onclick=async()=>{
+  try{
+    $("download").disabled=true;$("download").textContent="画像を生成中…";
+    const canvas=await renderPNG();
+    canvas.toBlob(blob=>{
+      const a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download="FEELINGLOW-profile.png";a.click();
+      setTimeout(()=>URL.revokeObjectURL(a.href),1000);
+    },"image/png");
+  }catch(e){console.error(e);alert("PNG生成に失敗しました。画像を外して再度お試しください。")}
+  finally{$("download").disabled=false;$("download").textContent="PNG画像として保存"}
+};
+$("photoImg").style.display="none";update();
+</script>
+</body>
+</html>
